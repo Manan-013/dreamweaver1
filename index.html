@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LuxStep — Premium Shoes</title>
+
+  <!-- Google Fonts: premium serif for headings, clean sans for body -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Variables - color palette & layout ===== */
+    :root{
+      --bg: #0b0b0b;
+      --surface: #0f0f10;
+      --muted: #bdbdbd;
+      --accent: #b8860b; /* gold */
+      --white: #ffffff;
+      --glass: rgba(255,255,255,0.04);
+      --card-radius: 14px;
+      --max-width: 1200px;
+      --container-pad: 1.25rem;
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+      --soft-shadow: 0 10px 30px rgba(2,6,23,0.45);
+    }
+
+    /* ===== Page reset ===== */
+    * { box-sizing: border-box; }
+    html,body { height: 100%; }
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--white);
+      background: linear-gradient(180deg,#060606 0%, #0b0b0b 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      -webkit-text-size-adjust:100%;
+    }
+
+    /* ===== Layout container ===== */
+    .site {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+
+    /* ===== Header ===== */
+    header {
+      position: fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index: 40;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(11,11,11,0.8), rgba(11,11,11,0.5));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .header-inner {
+      max-width:var(--max-width);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 1rem var(--container-pad);
+      gap:1rem;
+    }
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      text-decoration:none;
+      color:var(--white);
+    }
+    .logo-mark {
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      box-shadow: var(--soft-shadow);
+      font-weight:700;
+      font-family: "Merriweather", serif;
+      letter-spacing: .6px;
+      color:var(--accent);
+      font-size:18px;
+    }
+    .brand {
+      display:flex;
+      flex-direction:column;
+      line-height:1;
+    }
+    .brand .title {
+      font-family: "Merriweather", serif;
+      font-weight:700;
+      font-size:16px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .brand .sub { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+    nav {
+      display:flex;
+      gap:1.1rem;
+      align-items:center;
+    }
+    nav a {
+      color:var(--muted);
+      text-decoration:none;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      padding: .5rem .6rem;
+      border-radius:6px;
+    }
+    nav a:hover { color:var(--white); background: rgba(255,255,255,0.02); }
+
+    /* ===== Hero ===== */
+    .hero {
+      margin-top:84px; /* header height */
+      position:relative;
+      min-height:72vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--white);
+      overflow:hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: url(https://images.unsplash.com/photo-1518002171953-a080ee817e1f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      filter: contrast(1.05) saturate(.9) brightness(.55);
+      z-index:0;
+    }
+    .hero::after{
+      /* gradient overlay for premium look */
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(11,11,11,0.35), rgba(2,6,23,0.6));
+      z-index:1;
+    }
+    .hero-inner {
+      position:relative;
+      z-index:3;
+      width:100%;
+      max-width:1100px;
+      padding:4rem 1rem;
+      display:grid;
+      gap:2rem;
+      grid-template-columns: 1fr 420px;
+      align-items:center;
+    }
+
+    .hero-copy h1{
+      margin:0 0 .6rem 0;
+      font-family: "Merriweather", serif;
+      font-size: clamp(28px, 6vw, 56px);
+      line-height:1.02;
+      letter-spacing: -0.02em;
+      font-weight:700;
+    }
+    .hero-copy p{
+      margin:0 0 1.5rem 0;
+      color:var(--muted);
+      max-width:55ch;
+      font-size:16px;
+    }
+    .cta {
+      display:inline-block;
+      padding: .9rem 1.25rem;
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(184,134,11,0.12), rgba(184,134,11,0.18));
+      border: 1px solid rgba(184,134,11,0.22);
+      color:var(--accent);
+      text-transform:uppercase;
+      font-weight:600;
+      letter-spacing:1px;
+      text-decoration:none;
+      box-shadow: 0 6px 20px rgba(184,134,11,0.06);
+    }
+    .cta:hover { transform: translateY(-2px); }
+
+    /* Hero product highlight (right) */
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 18px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display:flex;
+      gap:1rem;
+      align-items:center;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .hero-card img {
+      width:110px;
+      height:110px;
+      object-fit:cover;
+      border-radius:12px;
+      flex-shrink:0;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.5);
+      transform: translateZ(0);
+    }
+    .hero-card .meta { display:flex; flex-direction:column; gap:.25rem;}
+    .hero-card .meta .name { font-weight:700; font-family:"Merriweather", serif; }
+    .hero-card .meta .price { color:var(--accent); font-weight:700; letter-spacing:0.6px; }
+
+    /* ===== Section headings ===== */
+    .section {
+      padding: 4rem 0;
+    }
+    .section .heading {
+      text-align:center;
+      margin-bottom:2rem;
+    }
+    .section .heading h2 {
+      margin:0;
+      font-family:"Merriweather", serif;
+      font-size: 26px;
+      letter-spacing: .6px;
+    }
+    .section .heading p { color:var(--muted); margin-top:.5rem; }
+
+    /* ===== Products grid ===== */
+    .products-grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:1.4rem;
+      align-items:stretch;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border-radius: var(--card-radius);
+      padding: .9rem;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+      transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+      display:flex;
+      flex-direction:column;
+      gap:.9rem;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 20px 45px rgba(2,6,23,0.6);
+    }
+    .card .imgwrap {
+      border-radius:12px;
+      overflow:hidden;
+      background:var(--glass);
+      display:block;
+      height:240px;
+    }
+    .card img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition: transform .6s cubic-bezier(.2,.9,.2,1);
+    }
+    .card:hover img { transform: scale(1.06); }
+    .card .info {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.5rem;
+    }
+    .card .title {
+      font-weight:600;
+      font-family:"Merriweather", serif;
+      font-size:15px;
+    }
+    .card .desc {
+      color:var(--muted);
+      font-size:13px;
+      margin-top:.25rem;
+    }
+    .price {
+      font-weight:700;
+      color:var(--accent);
+      font-family:"Merriweather", serif;
+      letter-spacing:.6px;
+    }
+
+    /* ===== Collections banners ===== */
+    .collections {
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:1rem;
+    }
+    .collection {
+      position:relative;
+      border-radius:14px;
+      overflow:hidden;
+      min-height:140px;
+      display:flex;
+      align-items:flex-end;
+      padding:1rem;
+      border: 1px solid rgba(255,255,255,0.03);
+      background-size:cover;
+      background-position:center;
+      transition: transform .35s, box-shadow .35s;
+    }
+    .collection:hover { transform: translateY(-6px); box-shadow: var(--soft-shadow); }
+    .collection .label {
+      font-family:"Merriweather", serif;
+      font-weight:700;
+      text-transform:uppercase;
+      font-size:14px;
+      letter-spacing:1px;
+      color:var(--white);
+      text-shadow: 0 4px 20px rgba(2,6,23,0.7);
+    }
+    .collection::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.45));
+      transition: background .35s;
+    }
+
+    /* ===== About & Contact ===== */
+    .about {
+      text-align:center;
+      max-width:900px;
+      margin:0 auto;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    .contact-wrap {
+      max-width:800px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+    }
+    .contact-form {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      padding:1rem;
+      border-radius:12px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .contact-form label {
+      display:block;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:.35rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width:100%;
+      padding:.7rem .8rem;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.02);
+      color: var(--white);
+      font-size:14px;
+      outline:none;
+      resize:vertical;
+    }
+    .contact-submit {
+      margin-top:.7rem;
+      display:inline-block;
+      padding:.75rem 1rem;
+      border-radius:10px;
+      border: 1px solid rgba(184,134,11,0.18);
+      background: linear-gradient(90deg, rgba(184,134,11,0.1), rgba(184,134,11,0.14));
+      color:var(--accent);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      padding:2rem 0;
+      margin-top:2rem;
+      border-top:1px solid rgba(255,255,255,0.03);
+    }
+    .footer-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+    .socials { display:flex; gap:.7rem; }
+    .socials a {
+      width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
+      border-radius:8px; background: rgba(255,255,255,0.02); color:var(--muted); text-decoration:none;
+      font-size:14px;
+    }
+    .socials a:hover { color:var(--white); transform: translateY(-3px); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px){
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-inner { grid-template-columns: 1fr; padding:3rem 1rem; gap:1.2rem; }
+      .hero-card { justify-content:flex-start; }
+      .contact-wrap { grid-template-columns:1fr; }
+      .collections { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px){
+      nav { display:none; }
+      .hero-inner{ padding:2rem 1rem; }
+      .hero-card img { width:86px; height:86px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .collection { min-height:120px; }
+      .logo-mark { width:40px; height:40px; font-size:16px; }
+      .header-inner { padding: .75rem var(--container-pad); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header aria-label="Main header">
+    <div class="header-inner">
+      <a class="logo" href="#">
+        <div class="logo-mark">LS</div>
+        <div class="brand">
+          <span class="title">LuxStep</span>
+          <span class="sub">Est. 2025</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#collections">Collections</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="home" class="hero" role="region" aria-label="Hero">
+      <div class="hero-inner site">
+        <div class="hero-copy">
+          <h1>Step Into Luxury</h1>
+          <p>Curated premium footwear — handcrafted silhouettes, modern materials, and timeless design. Discover limited releases and signature pieces that elevate every step.</p>
+          <a class="cta" href="#shop">Explore Collection</a>
+        </div>
+
+        <div class="hero-card" aria-hidden="false">
+          <img src="https://images.unsplash.com/photo-1585944672394-4c58a015c1fb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured shoe">
+          <div class="meta">
+            <div class="name">Aureum Runner</div>
+            <div class="price">₹9,499</div>
+            <div style="color:var(--muted); font-size:12px; margin-top:6px;">Limited release • Sizes UK 6–11</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section id="shop" class="section">
+      <div class="site">
+        <div class="heading">
+          <h2>Featured Pieces</h2>
+          <p>Handpicked premium styles — soft textures, refined lines, and statement finishes.</p>
+        </div>
+
+        <div class="products-grid" role="list" aria-label="Featured products">
+          <!-- Product 1 -->
+          <article class="card" role="listitem">
+            <div class="imgwrap">
+              <img src="https://cdn.shopify.com/s/files/1/0639/1237/8602/files/Oxford_Shoes_for_Men_480x480.jpg?v=1729163428" alt="Classic leather shoe">
+            </div>
+            <div>
+              <div class="info">
+                <div>
+                  <div class="title">Classic Heritage</div>
+                  <div class="desc">Full-grain leather • Goodyear welt</div>
+                </div>
+                <div class="price">₹7,499</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 2 -->
+          <article class="card">
+            <div class="imgwrap">
+              <img src="https://images.unsplash.com/photo-1585944672394-4c58a015c1fb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Minimal sneaker">
+            </div>
+            <div>
+              <div class="info">
+                <div>
+                  <div class="title">Aureum Runner</div>
+                  <div class="desc">Lightweight knit • Responsive sole</div>
+                </div>
+                <div class="price">₹9,499</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 3 -->
+          <article class="card">
+            <div class="imgwrap">
+              <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQOV_Y5nSBUUnPz_XOoBP-GgfaXvaJKGoCjws92MLCQIY5Jzn7K8_IHFYWlQIiod1Dg0CTPeH-eYpOojkoW2ZC8IxuXNE9ZxoACR5fBO6PBsmoTDvGt6oXSDfE" alt="Formal shoe">
+            </div>
+            <div>
+              <div class="info">
+                <div>
+                  <div class="title">Monarch Oxford</div>
+                  <div class="desc">Polished finish • Structured fit</div>
+                </div>
+                <div class="price">₹8,299</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 4 -->
+          <article class="card">
+            <div class="imgwrap">
+              <img src="https://images.unsplash.com/photo-1629097499121-290fd9a95dee?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Casual slip-on">
+            </div>
+            <div>
+              <div class="info">
+                <div>
+                  <div class="title">Urban Slip</div>
+                  <div class="desc">Comfort insole • Everyday style</div>
+                </div>
+                <div class="price">₹3,299</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 5 -->
+          <article class="card">
+            <div class="imgwrap">
+              <img src="https://images.unsplash.com/photo-1537636568536-a2e00b44cb85?q=80&w=723&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="High-top sneaker">
+            </div>
+            <div>
+              <div class="info">
+                <div>
+                  <div class="title">Summit High</div>
+                  <div class="desc">Ankle support • Trail-ready</div>
+                </div>
+                <div class="price">₹6,799</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 6 -->
+          <article class="card">
+            <div class="imgwrap">
+              <img src="https://images.complex.com/complex/images/c_crop,h_898,w_1596,x_0,y_0/c_fill,dpr_auto,f_auto,q_auto,w_1400/fl_lossy,pg_1/fl_lossy,q_70/idlzy2tbdsoajsnxlw3x/limited-edition-sneaker-boxes" alt="Limited edition shoe">
+            </div>
+            <div>
+              <div class="info">
+                <div>
+                  <div class="title">Nocturne — Limited</div>
+                  <div class="desc">Special edition • Numbered</div>
+                </div>
+                <div class="price">₹12,999</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section id="collections" class="section" aria-label="Collections">
+      <div class="site">
+        <div class="heading">
+          <h2>Collections</h2>
+          <p>Explore curated groups — each tells a design story.</p>
+        </div>
+
+        <div class="collections" role="list">
+          <div class="collection" role="listitem" style="background-image:url(https://images.unsplash.com/photo-1586525198428-225f6f12cff5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+            <div class="label">Sneakers</div>
+          </div>
+          <div class="collection" role="listitem" style="background-image:url(https://plus.unsplash.com/premium_photo-1670983855655-36ed5f4c2fb1?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+            <div class="label">Formall</div>
+          </div>
+          <div class="collection" role="listitem" style="background-image:url(https://images.unsplash.com/photo-1649920566440-eb5678255340?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+            <div class="label">Casual</div>
+          </div>
+          <div class="collection" role="listitem" style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop')">
+            <div class="label">Limited Edition</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" style="padding-top:2rem;">
+      <div class="site">
+        <div class="heading">
+          <h2>About LuxStep</h2>
+        </div>
+
+        <div class="about">
+          <p>
+            LuxStep crafts footwear for those who appreciate detail. We combine traditional craftsmanship with modern materials to create shoes that feel as refined as they look.
+            Every pair undergoes careful finishing, quality checks, and is designed to last — both in style and wear.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="site">
+        <div class="heading">
+          <h2>Contact</h2>
+          <p>Questions, wholesale inquiries, or collaboration requests — we’d love to hear from you.</p>
+        </div>
+
+        <div class="contact-wrap">
+          <form class="contact-form" aria-label="Contact form" onsubmit="return false;">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your full name" required>
+
+            <label for="email" style="margin-top:.6rem;">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+            <label for="message" style="margin-top:.6rem;">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
+
+            <button class="contact-submit" type="submit">Send Message</button>
+          </form>
+
+          <div style="display:flex; flex-direction:column; gap:1rem; justify-content:center;">
+            <div style="background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.03);">
+              <strong style="font-family:'Merriweather', serif;">Showroom</strong>
+              <div style="color:var(--muted); margin-top:.4rem;">Third Space, Udaipur • By appointment</div>
+            </div>
+
+            <div style="background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.03);">
+              <strong style="font-family:'Merriweather', serif;">Wholesale</strong>
+              <div style="color:var(--muted); margin-top:.4rem;">partners@luxstep.example</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="site">
+      <div class="footer-inner">
+        <div style="display:flex; gap:1rem; align-items:center;">
+          <div class="logo-mark" style="width:44px; height:44px;">LS</div>
+          <div style="font-family:'Merriweather', serif;">
+            <div style="font-weight:700;">LuxStep</div>
+            <div style="font-size:12px; color:var(--muted);">Fine Footwear • Made with care</div>
+          </div>
+        </div>
+
+        <div class="socials" aria-label="Social links">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Pinterest">PT</a>
+        </div>
+
+        <div style="color:var(--muted); font-size:13px;">&copy; <span id="year"></span> LuxStep. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // small unobtrusive enhancement: set year (no site functionality depends on JS)
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
